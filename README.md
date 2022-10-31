@@ -4,17 +4,17 @@
     	private static String PASSWORD = "";
 	public static Connection getCon(String dbURL, String userName, 
             String password) {
-        Connection conn = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(dbURL, userName, password);
-            System.out.println("connect successfully!");
-        } catch (Exception ex) {
-            System.out.println("connect failure!");
-            ex.printStackTrace();
-        }
-        return conn;
-    }
+        	Connection conn = null;
+		try {
+		    Class.forName("com.mysql.jdbc.Driver");
+		    conn = DriverManager.getConnection(dbURL, userName, password);
+		    System.out.println("connect successfully!");
+		} catch (Exception ex) {
+		    System.out.println("connect failure!");
+		    ex.printStackTrace();
+		}
+		return conn;
+    	}
 	
 	public String[][] getSA() {
 		ResultSet rs = null;
