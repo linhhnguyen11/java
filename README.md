@@ -1,7 +1,7 @@
-// Xử lí dữ liệu
-private static String DB_URL = "jdbc:mysql://localhost:3306/dlsach";
-    private static String USER_NAME = "root";
-    private static String PASSWORD = "";
+// Xử lí dữ liệu//
+	private static String DB_URL = "jdbc:mysql://localhost:3306/dlsach";
+    	private static String USER_NAME = "root";
+    	private static String PASSWORD = "";
 	public static Connection getCon(String dbURL, String userName, 
             String password) {
         Connection conn = null;
@@ -70,4 +70,24 @@ private static String DB_URL = "jdbc:mysql://localhost:3306/dlsach";
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+	}
+	public boolean updateCB(String hoten, String diachi, String gioitinh) {
+		try {
+            // connnect to database 'testdb'
+            Connection conn = getCon(DB_URL, USER_NAME, PASSWORD);
+            String SQL = "INSERT INTO tbCanbo (hoten, diachi, gioitinh)" + "VALUES(?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(SQL,
+                    Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, hoten);
+            pstmt.setString(2, diachi);
+            pstmt.setString(3, gioitinh);
+            int id = pstmt.executeUpdate();
+            if(id == 1) {
+            	return true;
+            }
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+		return false;
 	}
