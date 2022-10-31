@@ -1,4 +1,4 @@
-// Xử lí dữ liệu//
+
 	private static String DB_URL = "jdbc:mysql://localhost:3306/dlsach";
     	private static String USER_NAME = "root";
     	private static String PASSWORD = "";
