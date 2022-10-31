@@ -88,8 +88,7 @@
 	}
 
 
-
-GIAO DIỆN XOÁ
+giao diện xoá
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -161,7 +160,7 @@ public class GUI_delSA {
 }
 
 
-GIAO DIỆN THÊM
+giao diện thêm
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
