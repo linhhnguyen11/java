@@ -21,13 +21,9 @@
 		String data[][] = new String[10][10];
 		String[][] copyData = new String[10][5];
 		try {
-            // connnect to database 'testdb'
             Connection conn = getCon(DB_URL, USER_NAME, PASSWORD);
-            // crate statement
             Statement stmt = conn.createStatement();
-            // get data from table 'student'
            rs = stmt.executeQuery("select * from tbsach");
-            // show data
            int i = 0;
    		while(rs.next()) {
    			data[i] = new String[] {rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4)};
@@ -49,7 +45,6 @@
 				copyData[i1][4] = Float.toString(sach.ThanhTien());
 			}
 		}
-            // close connection
             conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -59,13 +54,13 @@
 	
 	public void deleteSA(int nam) {
 		try {
-            // connnect to database 'testdb'
+            --connnect to database 'testdb'
             Connection conn = getCon(DB_URL, USER_NAME, PASSWORD);
-            // crate statement
+            --crate statement
             Statement stmt = conn.createStatement();
-            // get data from table 'student'
+            -- data from table 'student'
             stmt.executeUpdate("DELETE FROM tbsach WHERE NamXB="+nam);
-            // close connection
+            --ose connection
             conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -73,7 +68,7 @@
 	}
 	public boolean updateCB(String hoten, String diachi, String gioitinh) {
 		try {
-            // connnect to database 'testdb'
+            --nnnect to database 'testdb'
             Connection conn = getCon(DB_URL, USER_NAME, PASSWORD);
             String SQL = "INSERT INTO tbCanbo (hoten, diachi, gioitinh)" + "VALUES(?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(SQL,
@@ -138,10 +133,8 @@ public class GUI_delSA {
 		f.add(delSA);
 		f.add(sp);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		f.setLayout(null);
         f.setSize(600, 600);
         f.setVisible(true);
-//        delSA.addActionListener((ActionListener) f);
         delSA.addActionListener(new ActionListener(){  
     		public void actionPerformed(ActionEvent e){  
     			int getNam = Integer.parseInt(NamXB.getSelectedItem().toString());
@@ -244,7 +237,6 @@ public class GUI_Update extends JFrame {
 		f.add(delSA);
 		f.add(sp);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		f.setLayout(null);
         f.setSize(600, 600);
         f.setVisible(true);
         cbnam.addItemListener(new ItemListener() {
