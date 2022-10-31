@@ -156,7 +156,6 @@ public class GUI_delSA {
 	 
 	
 }
-giao diện thêm
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
