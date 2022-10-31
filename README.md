@@ -91,3 +91,195 @@
         }
 		return false;
 	}
+
+
+
+GIAO DIỆN XOÁ
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.util.Arrays;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class GUI_delSA {
+	JFrame f;
+	DefaultTableModel tableModel = new DefaultTableModel();
+	JButton delSA = new JButton("Xoá sách");
+	String strNamXB[] = {"2019", "2020", "2021"};
+	JComboBox NamXB = new JComboBox(strNamXB);
+	GUI_delSA() {
+		XLSach listSach = new XLSach();
+		String[][] data = listSach.getSA();
+		NamXB.setBounds(100, 50, 150, 20);
+		delSA.setBounds(350, 350, 100, 20);
+		JTable tableSA = new JTable(tableModel);
+		tableModel.addColumn("ID");
+	    tableModel.addColumn("Tên sách");
+	    tableModel.addColumn("Năm xuất bản");
+	    tableModel.addColumn("Giá");
+	    tableModel.addColumn("Thành tiền");
+	    for(int i=0; i<data.length; i++) {
+			if(data[i][0] != null) {
+				tableModel.addRow(data[i]);
+			}
+		}
+		tableSA.setBounds(30, 100, 200, 300);
+		JScrollPane sp = new JScrollPane(tableSA);
+        
+		f = new JFrame("DASach");
+		f.add(NamXB);
+		f.add(delSA);
+		f.add(sp);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		f.setLayout(null);
+        f.setSize(600, 600);
+        f.setVisible(true);
+//        delSA.addActionListener((ActionListener) f);
+        delSA.addActionListener(new ActionListener(){  
+    		public void actionPerformed(ActionEvent e){  
+    			int getNam = Integer.parseInt(NamXB.getSelectedItem().toString());
+    			JOptionPane.showMessageDialog(f,
+    				    getNam,
+    				    "Inane warning",
+    				    JOptionPane.QUESTION_MESSAGE); 
+    			for (int i=0; i<tableModel.getRowCount()-1; i++) {
+    				if (tableModel.getValueAt(i, 2)!=null &&((String)tableModel.getValueAt(i, 2)).equals(Integer.toString(getNam))  ) {
+    					tableModel.removeRow(i);
+    	            }
+    			}
+    			XLSach listSach = new XLSach();
+    			listSach.deleteSA(getNam);
+    			String[][] data = listSach.getSA();
+    			
+    		 }
+    			
+    	}); 
+	}
+	
+	 
+	
+}
+
+
+GIAO DIỆN THÊM
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.Component;
+import java.awt.Rectangle;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.ResultSet;
+import java.util.Arrays;
+
+public class GUI_Update extends JFrame {
+	String hoten;
+	String diachi;
+	String gioitinh;
+	JFrame f;
+	DefaultTableModel tableModel = new DefaultTableModel();
+	JButton delSA = new JButton("Thêm cán bộ");
+	GUI_Update() {
+		QLCB listSach = new QLCB();
+		String[][] data = listSach.getSA();
+		delSA.setBounds(350, 350, 150, 20);
+		JTable tableSA = new JTable(tableModel);
+		tableModel.addColumn("ID");
+	    tableModel.addColumn("Họ tên");
+	    tableModel.addColumn("Địa chỉ");
+	    tableModel.addColumn("Giới tính");
+	    for(int i=0; i<data.length; i++) {
+			if(data[i][0] != null) {
+				tableModel.addRow(data[i]);
+			}
+		}
+		tableSA.setBounds(30, 100, 200, 300);
+		JScrollPane sp = new JScrollPane(tableSA);
+        
+		JLabel lbname = new JLabel("Họ tên");
+		JTextField ipname = new JTextField();
+		JLabel lbdiachi = new JLabel("Địa chỉ");
+		JTextField ipdiachi = new JTextField();
+		JLabel lbgioitinh = new JLabel("Giới tính");
+		JCheckBox cbnam = new JCheckBox("Nam",true);
+		JCheckBox cbnu = new JCheckBox("Nữ");
+		lbname.setBounds(20, 250, 100, 20);
+		ipname.setBounds(150, 250, 100, 20);
+		lbdiachi.setBounds(20, 300, 100, 20);
+		ipdiachi.setBounds(150, 300, 100, 20);
+		lbgioitinh.setBounds(20, 350, 100, 20);
+		cbnam.setBounds(150, 350, 70, 20);
+		cbnu.setBounds(230, 350, 70, 20);
+		f = new JFrame("Cán Bộ");
+		f.add(lbname);
+		f.add(ipname);
+		f.add(lbdiachi);
+		f.add(ipdiachi);
+		f.add(lbgioitinh);
+		f.add(cbnam);
+		f.add(cbnu);
+		f.add(delSA);
+		f.add(sp);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		f.setLayout(null);
+        f.setSize(600, 600);
+        f.setVisible(true);
+        cbnam.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == 1) {
+                	gioitinh = "Nam";
+                	cbnu.setSelected(false);
+                } 
+            }
+        }); 
+		cbnu.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == 1) {
+                	gioitinh = "Nữ";
+                	cbnam.setSelected(false);
+                } 
+            }
+        });
+        delSA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hoten = ipname.getText();
+				diachi = ipdiachi.getText();
+				
+				System.out.println(gioitinh);
+				QLCB canbo = new QLCB();
+				canbo.updateCB(hoten, diachi, gioitinh);
+				String[][] data = canbo.getSA();
+				for(int i=data.length-1; i>0; i--) {
+					if(data[i][0] != null) {
+						tableModel.addRow(data[i]);
+						break;
+					}
+				}
+			}
+		});
+}
+	
+}
