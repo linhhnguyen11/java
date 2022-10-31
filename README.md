@@ -86,8 +86,6 @@
         }
 		return false;
 	}
-
-
 giao diện xoá
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -158,8 +156,6 @@ public class GUI_delSA {
 	 
 	
 }
-
-
 giao diện thêm
 import javax.swing.JFrame;
 import javax.swing.JLabel;
